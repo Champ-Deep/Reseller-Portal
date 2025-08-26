@@ -196,7 +196,7 @@ if (process.env.AUTH_SECRET) {
             },
           },
           authorize: async (credentials) => {
-            const { email, password } => credentials;
+            const { email, password } = credentials;
             if (!email || !password) {
               return null;
             }

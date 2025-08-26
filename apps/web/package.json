@@ -4,9 +4,11 @@
 	"type": "module",
 	"scripts": {
 		"dev": "react-router dev",
+		"build": "react-router build",
+		"build:spa": "react-router build",
+		"start": "react-router-serve ./build/server/index.js",
 		"dev:simple": "node simple-server.js",
 		"dev:reliable": "node simple-server.js",
-		"start": "node simple-server.js",
 		"dev:monitor": "node scripts/dev-monitor.js",
 		"typecheck": "react-router typegen && tsc --noEmit",
 		"setup": "node scripts/setup-db.js",

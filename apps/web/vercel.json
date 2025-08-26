@@ -1,16 +1,14 @@
 {
   "version": 2,
   "name": "lakeb2b-reseller-portal",
-  "builds": [
+  "buildCommand": "npm run build:spa",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "outputDirectory": "build/client",
+  "rewrites": [
     {
-      "src": "simple-server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/simple-server.js"
+      "source": "/((?!assets/).*)",
+      "destination": "/index.html"
     }
   ],
   "env": {
