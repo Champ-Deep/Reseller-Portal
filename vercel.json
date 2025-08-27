@@ -1,5 +1,13 @@
 {
   "version": 2,
-  "name": "lakeb2b-reseller-portal",
-  "rootDirectory": "Reseller Portal/apps/web"
+  "buildCommand": "cd \"Reseller Portal/apps/web\" && npm install && npm run build:spa",
+  "outputDirectory": "Reseller Portal/apps/web/build/client",
+  "installCommand": "cd \"Reseller Portal/apps/web\" && npm install",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/((?!assets/).*)",
+      "destination": "/index.html"
+    }
+  ]
 }
