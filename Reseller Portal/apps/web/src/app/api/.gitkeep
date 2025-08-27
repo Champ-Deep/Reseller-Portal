@@ -1,0 +1,2 @@
+# Empty API directory - prevents build errors in SPA mode
+# API routes moved to _api_unused to avoid React Router v7 server scanning issues
