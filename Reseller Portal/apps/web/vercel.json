@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "name": "lakeb2b-reseller-portal",
+  "buildCommand": "npm run build:spa",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
+  "outputDirectory": "build/client",
+  "rewrites": [
+    {
+      "source": "/((?!assets/).*)",
+      "destination": "/index.html"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
+}

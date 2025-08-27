@@ -1,0 +1,112 @@
+# Agent and sub-agent orchestration for Claude Code
+
+version: 1
+
+agents:
+  - id: architect
+    name: Solution Architect & Lead Designer
+    goals:
+      - Own system design, information architecture, and UX direction
+      - Keep codebase coherent, typed, and maintainable
+    responsibilities:
+      - Author `docs/IMPLEMENTATION_PLAN.md` and ADRs
+      - Define domain boundaries and folder structure
+      - Approve schemas and feature flags
+    handoffs:
+      - api
+      - web
+      - data
+
+  - id: api
+    name: Backend/API Engineer
+    goals:
+      - Implement secure org-scoped APIs and workers
+      - Ensure performance, observability, and tests
+    responsibilities:
+      - Prisma schema/migrations; zod validation; audit logs
+      - S3 presigned upload, BullMQ jobs, CSV streaming
+      - Heatmap aggregation endpoint and social feed providers (flagged)
+    handoffs:
+      - web
+
+  - id: web
+    name: Frontend Engineer & UX Polisher
+    goals:
+      - Build accessible, responsive, delightful UIs
+      - Maintain component library and patterns
+    responsibilities:
+      - App Router pages, server components, forms, tables
+      - ICP builder, enrichment flow, campaign planner
+      - Marketplace, success stories, admin console
+      - Social feed page and world map heatmap (seeded; feature flags)
+    handoffs:
+      - qa
+
+  - id: data
+    name: Data/Integrations Engineer
+    goals:
+      - Abstract external providers behind stable interfaces
+      - Prepare path to intent/technographics/CRM integrations
+    responsibilities:
+      - Provider adapters (mock in MVP), retry/circuit-breaker policies
+      - Mapbox/Leaflet integration and geo aggregation pipeline
+      - Future: predictive simulator scaffolding
+    handoffs:
+      - api
+
+  - id: qa
+    name: Quality Engineer
+    goals:
+      - Guarantee green tests and lint; prevent regressions
+    responsibilities:
+      - Unit/integration tests, smoke e2e flows
+      - Performance budgets, accessibility checks
+      - CI config and test data management
+
+workflows:
+  - name: mvp
+    description: Deliver MVP features end-to-end
+    stages:
+      - owner: architect
+        deliverables:
+          - docs/IMPLEMENTATION_PLAN.md
+          - docs/adr/*
+      - owner: api
+        deliverables:
+          - prisma schema + migrations + seeds
+          - api routes and worker scripts
+      - owner: web
+        deliverables:
+          - pages, components, and navigation
+      - owner: qa
+        deliverables:
+          - tests passing, lint clean
+
+feature_flags:
+  - key: social_feed
+    default: true
+    description: Enables seeded social feed and provider interfaces
+  - key: world_map_heatmap
+    default: true
+    description: Enables map heatmap rendering with seed data
+  - key: predictive_simulator
+    default: false
+    description: Enables basic simulator UI placeholder
+  - key: crm_connectors
+    default: false
+    description: Enables CRM export connectors
+
+env:
+  required:
+    - DATABASE_URL
+    - NEXTAUTH_SECRET
+    - S3_ACCESS_KEY_ID
+    - S3_SECRET_ACCESS_KEY
+    - S3_BUCKET
+    - S3_REGION
+    - REDIS_URL
+  optional:
+    - MAPBOX_TOKEN
+    - POSTHOG_KEY
+
+
